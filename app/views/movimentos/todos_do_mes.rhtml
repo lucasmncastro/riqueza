@@ -1,0 +1,7 @@
+<h2><%= link_to '&larr;', :data => (@data - 1.month) %> <%= @data.strftime '%B, %Y'%> <%= link_to '&rarr;', :data => @data + 1.month %></h2>
+
+<h3>Registrados</h3>
+<%= render :partial => 'list_with_date', :locals => {:movimentos => @movimentos} %>
+
+<h3>Agendados</h3>
+<%= render :partial => 'agendamentos',   :locals => {:movimentos => @movimentos} %>

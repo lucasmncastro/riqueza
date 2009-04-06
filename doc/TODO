@@ -1,0 +1,19 @@
+x Preencher na edicao as recorrencias
+x Nao salvar recorrencia quando estiver desmarcada
+x Apagar recorrencia quando salvar sem recorrencia
+x Exibir recorrencias nos meses seguintes
+x Transformar recorrencia (Promessa) em Movimento
+x Remover da lista do dia aqueles agendamentos q ja foram cumpridos.
+x Criar tags
+x Capar a edicao e criacao de filho (sem repeticao e tipo)
+x Ao apagar um Movimento, verificar se nao existe filho.
+  Se houver pedir confirmacao pra delecao de todos!
+x Nao permitir remover a recorrencia de um Movimento que já tem filhos.
+- Agendados do mês
+  Movimentos agendados do mes (pesquisar dia-a-dia)
+  respeitando a quantidade e os q ja foram registrados
+  movimentos (registrado) <---> movimentos (filhos)
+- Previsão do Saldo para o final do mês.
+- Saldo atual do mês.
+- Criar links no cabeçalho do index, para mes e para ano
+- Formatar as URLs estilo blogs /ano | /ano/mes | /ano/mes/dia/action

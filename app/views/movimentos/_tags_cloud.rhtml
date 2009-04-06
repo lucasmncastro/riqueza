@@ -1,0 +1,7 @@
+<div id="tags_cloud">
+  <% Tag.find_tag_cloud.each do |t|%>
+    <span class="tag" style="font-size: <%= t.score %>em">
+      <%= link_to t.name, :action => 'find_by_tag', :tag => t.name %>
+    </span>
+  <% end %>
+</div>

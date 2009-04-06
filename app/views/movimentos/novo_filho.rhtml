@@ -1,0 +1,10 @@
+<h2>
+  Cumprindo <%= @movimento.tipo %>
+</h2>
+
+<%= error_messages_for 'movimento' %>
+
+<% form_for 'movimento', :url => {:action => 'create'} do |f| %>
+  <%= hidden_field_tag 'movimento[pai_id]', @movimento.pai.id %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+<% end %>

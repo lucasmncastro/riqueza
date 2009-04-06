@@ -1,0 +1,19 @@
+Use this README file to introduce your application and point to useful places in the API for learning more.
+Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+
+= Riqueza
+
+Sistema de Controle de Despesas.
+
+Permite cadastrar despesas e receitas para que possamos conferir e prever
+o saldo em uma determinada data, decidindo assim o que fazer com tanta grana.
+
+== Funcionalidades
+
+* Registro de Movimentos (Receitas ou Despesas) acontecem no dia-a-dia.
+* Registro de Movimentos recorrentes - a aplicação avisa no dia em que deve se repetir e o usuário
+  pode efetuar o movimento.
+* Previsão do Saldo para o final do mês.
+* Saldo atual do mês.
+* Classificação de Movimentos por tags.
+

@@ -1,0 +1,14 @@
+movimento   = Movimento.find_by_id(params[:id]) || Movimento.new
+recorrencia = movimento.recorrencia || Recorrencia.new
+
+case params[:intervalo]
+when 'semana':
+  page[:dia].replace :partial => 'dias_semana', :locals => {:recorrencia => recorrencia}
+  page[:label_intervalo].replace_html 'toda'
+when 'mês':
+  page[:dia].replace :partial => 'dia_mes', :locals => {:recorrencia => recorrencia}
+  page[:label_intervalo].replace_html 'todo'
+else
+  page[:dia].replace_html ''
+  page[:label_intervalo].replace_html 'todo'
+end

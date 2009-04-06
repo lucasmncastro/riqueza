@@ -1,0 +1,5 @@
+<span id="ocorrencias">
+  <% fields_for 'movimento[recorrencia_attributes]', recorrencia do |f| %>
+    <%= f.date_select 'data_final',  :order => [:day, :month, :year] %>.
+  <% end %>
+</span>

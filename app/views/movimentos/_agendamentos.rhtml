@@ -1,0 +1,32 @@
+<% if @movimentos_agendados.blank? %>
+  <em>Nenhum movimento agendado.</em>
+<% else %>
+  <table cellspacing="0" border="0">
+    <% for movimento in @movimentos_agendados %>
+    <tr>
+      <td>
+        <%= link_to movimento.titulo, :action => 'edit', :id => movimento %>
+      </td>
+
+      <td style="text-align: right">
+        <% if movimento.tem_um_filho? @movimentos %>
+          <em>Registrado</em>
+        <% else %>
+          <%= link_to 'Registrar', {:action => 'novo_filho', :id => movimento, :data => @data }, :class => "cumprir" %>
+        <% end  %>
+      </td>
+
+      <td style="text-align: right" class="<%= movimento.tipo.underscore %>">
+        <%= number_to_currency movimento.valor, :unit => '' %>
+      </td>
+    </tr>
+    <% end %>
+    
+    <tfoot>
+      <tr>
+        <td colspan="3"><%= number_to_currency Movimento.saldo(@movimentos_agendados) %></td>
+      </tr>
+    </tfoot>
+  </table>
+
+<% end %>

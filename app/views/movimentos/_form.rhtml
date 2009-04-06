@@ -1,0 +1,112 @@
+<% if @movimento.pai_id? %>
+  <p> 
+    Criado a partir do <%= link_to @movimento.pai.titulo, :action => :edit, :id => @movimento.pai %>
+  </p>
+  <%= f.hidden_field 'data_prevista' %> 
+<% end %>
+
+<p>
+  <%= f.label 'titulo' %>  
+  <%= f.text_field 'titulo'%> 
+</p>
+
+<% if @movimento.pai_id? %>
+  <%= f.hidden_field 'tipo' %>
+<% else %>
+  <p style="font-size: 1.2em">
+    <label class="despesa"> <%= f.radio_button 'tipo', 'Despesa' %> Despesa </label> 
+    <label class="receita"> <%= f.radio_button 'tipo', 'Receita' %> Receita </label>
+  </p>  
+<% end %>
+
+<p>
+  <%= f.label 'valor' %> 
+  <%= f.text_field 'valor'%>
+</p>
+
+<p>
+  <%= f.label 'nota' %> 
+  <%= f.text_area 'nota', :rows => 2, :cols => 31 %>
+</p>
+
+<p>
+  <%= f.label 'tags_list', 'Tags', :title => 'Tags separadas por vírgula' %>
+  <%= f.text_field 'tags_list' %>
+</p>
+
+<p>
+  <%= f.label 'data' %> 
+  <%= f.date_select 'data',  :order => [:day, :month, :year] %>
+</p>
+
+<% unless @movimento.pai_id? %>
+  <fieldset id="fieldset_recorrencia" class="<%= 'aberto' if @movimento.recorrente %>">
+    <legend>
+      <label>
+        <% options = (@movimento.filhos.blank? ? {} : {:disabled => "false"})%>
+        <%= f.check_box 'recorrente', options, true, false %> Deve repetir
+      </label>
+      <%= observe_field 'movimento_recorrente', :function => "toggleRecorrencia()" %>
+    </legend>
+
+    <div id="recorrencia" style="<%= 'display:none' unless @movimento.recorrente %>">
+      <% recorrencia =  @movimento.recorrencia || Recorrencia.new %>
+
+      <% fields_for 'movimento[recorrencia_attributes]', recorrencia do |r|%>
+        <p id="intervalo">
+          <span id="label_intervalo">
+            <%= recorrencia.intervalo == 'semana' ? 'toda' : 'todo' %>
+          </span> 
+          <%= r.select 'intervalo', %w(dia semana mês ano) %>
+          <%= observe_field 'movimento_recorrencia_attributes_intervalo', :url => {:action => 'atualiza_dias', :id => @movimento}, :with => 'intervalo' %>
+
+          <%= case recorrencia.intervalo
+                when 'semana':  render :partial => 'dias_semana', :locals => {:recorrencia => recorrencia}
+                when 'mês':     render :partial => 'dia_mes', :locals => {:recorrencia => recorrencia}
+                else '<span id="dia"></span>'
+              end %>
+        </p>
+
+        <p>
+          <%= r.select 'tipo', %w(por até para\ sempre) %> 
+          <%= observe_field 'movimento_recorrencia_attributes_tipo', :url => {:action => 'atualiza_ocorrencias', :id => @movimento}, :with => 'tipo'%>
+
+          <%= case recorrencia.tipo
+              when 'por':         render :partial => 'ocorrencia_por', :locals => {:recorrencia => recorrencia}
+              when 'até':         render :partial => 'ocorrencia_ate', :locals => {:recorrencia => recorrencia}
+              else '<span id="ocorrencias">.</span>'
+            end %>
+        </p>
+
+        <% unless @movimento.filhos.blank? %>
+          <p>
+            Já criados a partir desse:
+            <% for filho in @movimento.filhos.sort_by {|s| s.data} %>
+              <%= link_to filho.data.strftime('%d/%m/%y'), :action => 'edit', :id => filho %>
+            <% end %>
+          </p>
+        <% end %>
+      <% end %>
+    </div>
+  </fieldset>
+<% end %>
+
+<p>
+  <%= submit_tag 'Salvar' %> 
+  <% 
+    if @movimento.filhos.blank? 
+      texto_exclusao = 'Quer mesmo excluir?'
+    elsif (quantidade = @movimento.filhos.size) == 1
+      texto_exclusao = "Há #{quantidade} movimento que irá junto.\n\nQuer mesmo excluir?"
+    else
+      texto_exclusao = "Há #{quantidade} movimentos que irão junto.\n\nQuer mesmo excluir?"
+    end
+  %>
+  <%= link_to('Excluir', {:action => 'destroy', :id => @movimento}, :confirm => texto_exclusao) unless @movimento.new_record? %>
+</p>
+
+<hr />
+
+<p>
+  <%= link_to '&larr; Voltar', :back %>
+</p>

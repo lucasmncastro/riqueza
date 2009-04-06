@@ -1,0 +1,7 @@
+<h2>Novo</h2>
+
+<%= error_messages_for 'movimento' %>
+
+<% form_for 'movimento', :url => {:action => 'create'} do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+<% end %>

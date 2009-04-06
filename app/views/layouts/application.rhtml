@@ -1,0 +1,57 @@
+<html>
+
+<head>
+  <title>Riqueza [versão beta]</title>
+  <%= javascript_include_tag :defaults %>
+  <%= stylesheet_link_tag 'calendar/red/style'%>
+  <%= stylesheet_link_tag 'riqueza'%>
+</head>
+
+<body>
+  <div onclick="window.location='/'" style="position: absolute; left: 0; width: 80px; top: 0; height: 200px; cursor: pointer;" title="Home"></div>
+  <div id="conteudo">
+    <% if flash[:notice] %>
+      <div class="notice"><%= flash[:notice] %> </div>
+    <% end %>
+    
+    <%= yield %>
+  </div>
+
+
+  <div id="calendario">
+    <% 
+      link_anterior = link_to 'Anterior', {:action => 'index', :data => (@data - 1.month)}, :class => "monthName", :title => (@data - 1.month).strftime('%B')
+      link_proximo  = link_to 'Próximo',  {:action => 'index', :data => (@data + 1.month)}, :class => "monthName", :title => (@data + 1.month).strftime('%B')
+    %>
+    <%= calendar(:year => @data.year, :month => @data.month, :abbrev => (0..0), :previous_month_text => link_anterior, :next_month_text => link_proximo) do |d| 
+      style = 'day selected' if @data == d
+      [link_to(d.mday, :action => 'index', :data => d), {:class => style || 'day'}]
+    end %>
+    
+    <div id="menu">
+      <h3>Opções</h3>
+      <ul>
+        <li>
+          <%= link_to_unless_current 'Adicionar', :controller => 'movimentos', :action => 'novo', :data => @data %>
+        </li>
+
+        <li>
+          <%= link_to_unless_current 'Registros de Hoje', :controller => 'movimentos', :action => 'index', :data => Date.today %>
+        </li>
+
+        <li>
+          <%= link_to_unless_current 'Registros de ' + @data.strftime('%B'), :controller => 'movimentos', :action => 'todos_do_mes', :data => @data %>
+        </li>   
+
+        <li>
+          <%= link_to_unless_current 'Ver Todos', :controller => 'movimentos', :action => 'todos', :data => @data %>
+        </li> 
+       </ul>
+
+       <h3>Nuvem de Tags</h3>
+       <%= render :partial => 'tags_cloud' %>
+       <!-- &#9786; -->
+    </div>
+  </div>
+</body>
+</html>

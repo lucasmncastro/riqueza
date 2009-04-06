@@ -1,0 +1,11 @@
+movimento   = Movimento.find_by_id(params[:id]) || Movimento.new
+recorrencia = movimento.recorrencia || Recorrencia.new
+
+case params[:tipo]
+when 'por':
+  page[:ocorrencias].replace :partial => 'ocorrencia_por', :locals => {:recorrencia => recorrencia}
+when 'até':
+  page[:ocorrencias].replace :partial => 'ocorrencia_ate', :locals => {:recorrencia => recorrencia}
+when 'para sempre':
+  page[:ocorrencias].replace_html '.'
+end

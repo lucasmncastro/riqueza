@@ -1,0 +1,11 @@
+<h2>
+  <%= link_to '&larr;', {:data => @data.yesterday}, :title => @data.yesterday.to_formatted_s(:long) %> 
+  <%= @data.to_formatted_s(:long) %> 
+  <%= link_to '&rarr;', {:data => @data.tomorrow}, :title => @data.tomorrow.to_formatted_s(:long) %>
+</h2>
+
+<h3>Registrados</h3>
+<%= render :partial => 'list' %>
+
+<h3>Agendados</h3>
+<%= render :partial => 'agendamentos' %>

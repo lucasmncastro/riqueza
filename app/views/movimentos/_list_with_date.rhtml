@@ -1,0 +1,26 @@
+<% if movimentos.blank? %>
+  <em>Nenhum movimento encontrado.</em>
+<% else %>
+  <table cellspacing="0" border="0">
+    <tr>
+      <th>Título</th>
+      <th>Data</th>
+      <th style="text-align: right">Valor (R$)</th>
+    </tr>
+    <% for movimento in movimentos %>
+    <tr>
+      <td><%= link_to movimento.titulo, :action => 'edit', :id => movimento %></td>
+      <td><%= link_to movimento.data.to_s(:short), :action => 'index', :data => movimento.data %></td>
+      <td style="text-align: right" class="<%= movimento.tipo.underscore %>"><%=  number_to_currency movimento.valor, :unit => '' %></td>
+    </tr>
+    <% end %>
+    
+    <tfoot>
+      <tr>
+        <td colspan="3">
+          <%= number_to_currency Movimento.saldo(@movimentos) %>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+<% end %>

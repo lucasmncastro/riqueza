@@ -1,0 +1,8 @@
+<p id="dia"> 
+  <% Date::ABBR_DAYNAMES.each do |dia| %>
+    <label>
+      <%= check_box_tag("movimento[recorrencia_attributes][dias_semana][]", dia, recorrencia.no_dia_da_semana?(dia)) %> 
+      <%= dia %>
+    </label>
+  <% end %>
+</p>
