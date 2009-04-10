@@ -10,6 +10,10 @@
 <body>
   <div onclick="window.location='/'" style="position: absolute; left: 0; width: 80px; top: 0; height: 200px; cursor: pointer;" title="Home"></div>
   <div id="conteudo">
+    <p class="subhead">
+      Seja positivo e Controle suas riquezas.
+    </p>
+
     <% if flash[:notice] %>
       <div class="notice"><%= flash[:notice] %> </div>
     <% end %>
@@ -48,7 +52,7 @@
         </li> 
        </ul>
 
-       <h3>Nuvem de Tags</h3>
+       <h3>Tags</h3>
        <%= render :partial => 'tags_cloud' %>
        <!-- &#9786; -->
     </div>
