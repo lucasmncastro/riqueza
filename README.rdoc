@@ -1,0 +1,9 @@
+= Riqueza
+
+Controle de despesas não é otimista. É melhor chamar de controle de Riquezas.
+É um daqueles programas que a gente quer fazer mesmo sabendo que tem uma dezena 
+de semelhantes por aí.
+
+Ele foi feito como um projeto pessoal, para aprender a usar o Rails. Não estou 
+seguindo muitas convenções; ele está em português, sem testes e não é RESTful.
+
