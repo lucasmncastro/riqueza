@@ -1,12 +1,8 @@
 class MovimentosController < ApplicationController
   
-  before_filter :preenche_dados_basicos, :debug
+  before_filter :preenche_dados_basicos, :authenticate
   
   protected
-    
-    def debug
-      puts params.inspect, '---------------------------------------'
-    end
     
     def preenche_dados_basicos
       @data = Date.strptime(params[:data]) rescue Date.today
