@@ -17,3 +17,5 @@ x Nao permitir remover a recorrencia de um Movimento que já tem filhos.
 - Saldo atual do mês.
 - Criar links no cabeçalho do index, para mes e para ano
 - Formatar as URLs estilo blogs /ano | /ano/mes | /ano/mes/dia/action
+- Restful nele!
+- Criar testes
